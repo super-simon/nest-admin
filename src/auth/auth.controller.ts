@@ -32,7 +32,11 @@ export class AuthController {
       throw new BadRequestException('Password do not match');
     }
     const hashed = await bcrypt.hash(body.password, 12);
-    return this.userService.create({ ...body, password: hashed });
+    return this.userService.create({
+      ...body,
+      password: hashed,
+      role: { id: 1 },
+    });
   }
 
   @Post('login')
