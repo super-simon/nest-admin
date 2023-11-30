@@ -25,7 +25,7 @@ export class UserController {
   @Get()
   @UseInterceptors(ClassSerializerInterceptor)
   async all(@Query('page') page = 1): Promise<User[]> {
-    return this.userService.paginate(page);
+    return this.userService.paginate(page, { relations: ['role'] });
   }
 
   @Post()
@@ -45,7 +45,7 @@ export class UserController {
 
   @Get(':id')
   async get(@Param('id') id: number) {
-    return this.userService.findOne({ where: { id } });
+    return this.userService.findOne({ where: { id }, relations: ['role'] });
   }
 
   @Put(':id')
